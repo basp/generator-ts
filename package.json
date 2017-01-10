@@ -1,0 +1,17 @@
+{
+  "name": "generator-ts",
+  "version": "0.1.0",
+  "description": "Yeoman generator for TS projects",
+  "files": [
+    "app",
+    "router"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^1.0.1"
+  },
+  "author": "http://github.com/basp",
+  "license": "MIT"
+}
