@@ -34,13 +34,18 @@ module.exports = Generator.extend({
                     test: 'echo \"Error: no test specified\" && exit 1'
                 },
                 devDependencies: {
+                    'babel-preset-es2015': '^6.18.0',
+                    'babelify': '^7.3.0',
                     'browserify': '^13.3.0',
                     'gulp': '^3.9.1',
+                    'gulp-sourcemaps': '^2.3.0',
+                    'gulp-uglify': '^2.0.0',
                     'gulp-util': '^3.0.8',
                     'tsify': '^3.0.0',
                     'typescript': '^2.1.4',
+                    'vinyl-buffer': '^1.0.0',
                     'vinyl-source-stream': '^1.1.0',
-                    'watchify': '^3.8.0' 
+                    'watchify': '^3.8.0'
                 }
             });  
         },
@@ -52,7 +57,7 @@ module.exports = Generator.extend({
                 ],
                 compilerOptions: {
                     noImplicitAny: true,
-                    target: 'es5'
+                    target: 'es2015'
                 }
             });
         },
