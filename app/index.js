@@ -1,4 +1,10 @@
+'use strict';
+
 var Generator = require('yeoman-generator');
+var yosay = require('yosay');
+var path = require('path');
+
+// var Generator = require('yeoman-generator');
 
 // initializing
 // prompting
@@ -9,18 +15,50 @@ var Generator = require('yeoman-generator');
 // install
 // end
 
+class TypeScriptGenerator extends Generator {
+    constructor(args, opts) {
+        super(args, opts);
+
+        this.argument('appname', {
+            type: String,
+            required: false
+        });
+
+        this.appname = this.options.appname || path.basename(process.cwd());
+    }
+
+    initializing() {
+        this.log(yosay('Welcome to the TypeScript generator!'));
+    }
+
+    prompting() {
+        return this.prompt([{
+            type: 'input',
+            name: 'appname',
+            message: 'Application name',
+            default: this.appname
+        }
+        ]).then(answers => {
+            this.log('app name', answers.appname);
+        });
+    }
+}
+
+module.exports = TypeScriptGenerator;
+
+/*
 module.exports = Generator.extend({
     writing: {
         'html': function () {
             this.fs.copyTpl(
-                this.templatePath('index.html'),
+                this.templatePath('src/index.html'),
                 this.destinationPath('src/index.html')
             );
         },
 
         'script': function () {
             this.fs.copyTpl(
-                this.templatePath('*.ts'),
+                this.templatePath('src/*.ts'),
                 this.destinationPath('src')
             );
         },
@@ -32,20 +70,6 @@ module.exports = Generator.extend({
                 private: true,
                 scripts: {
                     test: 'echo \"Error: no test specified\" && exit 1'
-                },
-                devDependencies: {
-                    'babel-preset-es2015': '^6.18.0',
-                    'babelify': '^7.3.0',
-                    'browserify': '^13.3.0',
-                    'gulp': '^3.9.1',
-                    'gulp-sourcemaps': '^2.3.0',
-                    'gulp-uglify': '^2.0.0',
-                    'gulp-util': '^3.0.8',
-                    'tsify': '^3.0.0',
-                    'typescript': '^2.1.4',
-                    'vinyl-buffer': '^1.0.0',
-                    'vinyl-source-stream': '^1.1.0',
-                    'watchify': '^3.8.0'
                 }
             });  
         },
@@ -62,11 +86,45 @@ module.exports = Generator.extend({
             });
         },
 
+        'karma.conf.js': function () {
+            this.fs.copyTpl(
+                this.templatePath('_karma.conf.js'),
+                this.destinationPath('karma.conf.js')
+            );
+        },
+
         'gulpfile.js': function () {
             this.fs.copyTpl(
                 this.templatePath('gulpfile.js'),
                 this.destinationPath('gulpfile.js')
             );
         }
+    },
+
+    install: function () {
+        const devDependencies = [
+            '@types/jasmine',
+            '@types/jquery',
+            'babel-preset-es2015',
+            'babelify',
+            'browserify',
+            'gulp',
+            'gulp-sourcemaps',
+            'gulp-uglify',
+            'gulp-util',
+            'jasmine-core',
+            'karma',
+            'karma-chrome-launcher',
+            'karma-jasmine',
+            'karma-typescript',
+            'tsify',
+            'typescript',
+            'vinyl-buffer',
+            'vinyl-source-stream',
+            'watchify'
+        ];
+
+        this.npmInstall(devDependencies, { 'save-dev': true });
     }
 });
+*/
